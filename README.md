@@ -1,0 +1,2 @@
+# hrSlider
+jquery image slider
