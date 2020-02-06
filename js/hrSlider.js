@@ -1,26 +1,27 @@
 $.fn.hrSlider=function(option){
-	var obj={container:this};
+	var _this=this;
 	console.log('option value >> ',option);
 
-	event={};
-	event.auto=function(){
+	
+	var auto=function(){
 		console.log('auto function');
 
 		debugger;
 		//슬라이드 사이즈 구하기
 	}
 
-	set={};
-	set.init=function(){
+	
+	var init=function(){
 		console.log('init function');
 	}
 
 	// TYPE | auto, static
-	set.init();
+	init();
 	if(option.type!=undefined || option.type!=null){
 		if(option.type=='auto'){
 			//debugger;
-			event.auto();
+			auto();
 		}
 	}
 }
+//http://www.nextree.co.kr/p9989/
