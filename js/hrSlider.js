@@ -1,27 +1,51 @@
-$.fn.hrSlider=function(option){
-	var _this=this;
-	console.log('option value >> ',option);
+(function($){
+	$.fn.hrSlider=function(option){
+		var op=option;
+		var _this=this;
+		console.log(_this)
 
-	
-	var auto=function(){
-		console.log('auto function');
-
-		debugger;
-		//슬라이드 사이즈 구하기
-	}
-
-	
-	var init=function(){
-		console.log('init function');
-	}
-
-	// TYPE | auto, static
-	init();
-	if(option.type!=undefined || option.type!=null){
-		if(option.type=='auto'){
-			//debugger;
-			auto();
+		var init=function(){
+			console.log('init function');
+			if(op!=undefined&&op!=null){
+				optionSet();
+			}else{
+				defaultOptionSet();
+			}
 		}
+
+		var opFunc={};
+		opFunc.typeAuto=function(){
+			var width=150;
+			var cnt=0;
+			var len=5;
+
+			//
+		}
+
+		var optionSet=function(){
+			console.log('optionSet function');
+
+			if(op.type!=null){
+				switch(op.type){
+					case 'auto':
+						opFunc.typeAuto();
+						break;
+					case 'contorl':
+						break;
+				}
+			}
+		}
+
+		
+
+		var defaultOptionSet=function(){
+			console.log('defaultOptionSet function');
+		}
+
+		
+
+		// ===========================================
+		init();
 	}
-}
+})(jQuery);
 //http://www.nextree.co.kr/p9989/
