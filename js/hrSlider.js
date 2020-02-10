@@ -15,11 +15,26 @@
 
 		var opFunc={};
 		opFunc.typeAuto=function(){
-			var width=150;
-			var cnt=0;
-			var len=5;
+			let width=150;
+			let cnt=1;
+			let len=_this.children().children().length-1;
 
-			//
+
+			let autoRightMoveId=setInterval(function(){
+				_this.children().css({marginLeft:-1*(150*cnt)})	
+				if(cnt==len){
+					clearInterval(autoRightMoveId);
+				}else{
+					cnt++;
+				}
+			
+			}, 3000);
+
+			let autoLeftMoveId=setInterval(function(){
+
+			});
+		
+
 		}
 
 		var optionSet=function(){
