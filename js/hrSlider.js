@@ -1,8 +1,7 @@
 (function($){
 	$.fn.hrSlider=function(option){
-		var op=option;
-		var _this=this;
-		console.log(_this)
+		let op=option;
+		let _this=this;
 
 		var init=function(){
 			console.log('init function');
@@ -15,26 +14,54 @@
 
 		var opFunc={};
 		opFunc.typeAuto=function(){
+			let pt=_this.children();
+			let len=pt.children().length-1;
+
 			let width=150;
-			let cnt=1;
-			let len=_this.children().children().length-1;
-
-
-			let autoRightMoveId=setInterval(function(){
-				_this.children().css({marginLeft:-1*(150*cnt)})	
-				if(cnt==len){
-					clearInterval(autoRightMoveId);
-				}else{
-					cnt++;
-				}
+			let maxSize=-1*(width*len);
+			let cssVal=null;
 			
-			}, 3000);
 
-			let autoLeftMoveId=setInterval(function(){
+			let autoRightMoveId=null;
+			let autoLeftMoveId=null;
+			autoRightMove();
 
-			});
-		
+			function autoRightMove(){
+				autoRightMoveId=setInterval(function(){
+					cssVal=parseInt(pt.css('margin-left').replace('px','').replace('-',''));
+					debugger;
+					if(cssVal==maxSize){
+						clearInterval(autoRightMoveId);
+					}else{
+						pt.css('margin-left',(cssVal+150)*-1);
+					}
 
+					
+					
+					
+					
+				}, 1500);
+			}
+
+			function autoLeftMove(){
+				let pt=_this.children();
+				let cssVal=null;
+				autoLeftMoveId=setInterval(function(){
+					cssVal=pt.css('margin-left').replace('px','');
+					
+					//pt.css({marginLeft:parseInt(pt.css('margin-left').replace('px',''))+150});
+					if(cnt==len){
+						pt.css({marginLeft:0});
+						clearInterval(autoLeftMove);
+						cnt=1;
+						console.log('이제 다시 오른쪽으로 이동할 차례')
+						autoRightMove();
+					}else{
+						pt.css({marginLeft:parseInt(cssVal)+150});
+						cnt++;
+					}
+				},1500);
+			}
 		}
 
 		var optionSet=function(){
