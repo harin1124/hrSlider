@@ -17,16 +17,14 @@
 		var opFunc={};
 		opFunc.typeAuto=function(){
 			let pt=_this.children();
-			let len=pt.children().length;
 			let delay=(op.delay!=undefined)?op.delay:3000;
 
-			let width=150;
-			let maxSize=-1*(width*(len-1));
+			let width=150; // 이 부분은 실제로 값 받아서 처리해야 함
+			let maxSize=-1*(width*(pt.children().length-1));
 			let cssVal=null;
 			
 			let autoRightMoveId=null;
 			let autoLeftMoveId=null;
-
 
 			autoRightMove();
 
