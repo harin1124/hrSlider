@@ -3,6 +3,8 @@
 		let op=option;
 		let _this=this;
 
+		console.log(op)
+
 		var init=function(){
 			console.log('init function');
 			if(op!=undefined&&op!=null){
@@ -15,52 +17,39 @@
 		var opFunc={};
 		opFunc.typeAuto=function(){
 			let pt=_this.children();
-			let len=pt.children().length-1;
+			let len=pt.children().length;
+			let delay=(op.delay!=undefined)?op.delay:3000;
 
 			let width=150;
-			let maxSize=-1*(width*len);
+			let maxSize=-1*(width*(len-1));
 			let cssVal=null;
 			
-
 			let autoRightMoveId=null;
 			let autoLeftMoveId=null;
+
+
 			autoRightMove();
 
 			function autoRightMove(){
 				autoRightMoveId=setInterval(function(){
-					cssVal=parseInt(pt.css('margin-left').replace('px','').replace('-',''));
-					debugger;
+					cssVal=parseInt(pt.css('margin-left').replace('px'))-150;
+					pt.css('margin-left', cssVal);
 					if(cssVal==maxSize){
 						clearInterval(autoRightMoveId);
-					}else{
-						pt.css('margin-left',(cssVal+150)*-1);
+						autoLeftMove();
 					}
-
-					
-					
-					
-					
-				}, 1500);
+				}, delay);
 			}
 
 			function autoLeftMove(){
-				let pt=_this.children();
-				let cssVal=null;
 				autoLeftMoveId=setInterval(function(){
-					cssVal=pt.css('margin-left').replace('px','');
-					
-					//pt.css({marginLeft:parseInt(pt.css('margin-left').replace('px',''))+150});
-					if(cnt==len){
-						pt.css({marginLeft:0});
-						clearInterval(autoLeftMove);
-						cnt=1;
-						console.log('이제 다시 오른쪽으로 이동할 차례')
+					cssVal=parseInt(pt.css('margin-left').replace('px',''))+150;
+					pt.css('margin-left',cssVal);
+					if(cssVal==0){
+						clearInterval(autoLeftMoveId);
 						autoRightMove();
-					}else{
-						pt.css({marginLeft:parseInt(cssVal)+150});
-						cnt++;
 					}
-				},1500);
+				}, delay);
 			}
 		}
 
