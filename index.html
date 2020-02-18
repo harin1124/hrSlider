@@ -17,9 +17,20 @@
 			<li class="hr-slider"><img src="./images/2020_Birds_of_Prey.jpg" title="4번 이미지"></li>
 			<li class="hr-slider"><img src="./images/2020_Black_Widow.jpg" title="5번 이미지"></li>
 		</ul>
+		<!-- <div class="hr-btn-container">
+			<button type="button" class="btn prev">prev</button>
+			<button type="button" class="btn next">next</button>
+		</div> -->
 	</div>
 </body>
 <script>
-	$('.myContainer').hrSlider({type:'auto'});
+	$('.myContainer').hrSlider({type:'auto', delay:1000, button:true});
 </script>
 </html>
+
+<!--
+.hr-wrap .hr-btn-container {}
+.hr-wrap .hr-btn-container .btn {}
+.hr-wrap .hr-btn-container .btn.left {}
+.hr-wrap .hr-btn-container .btn.right {}
+-->

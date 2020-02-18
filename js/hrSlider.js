@@ -2,8 +2,7 @@
 	$.fn.hrSlider=function(option){
 		let op=option;
 		let _this=this;
-
-		console.log(op)
+		console.log('option :: ',op);
 
 		var init=function(){
 			console.log('init function');
@@ -51,6 +50,24 @@
 			}
 		}
 
+		opFunc.createButton=function(){
+			var $el=$('<div class="hr-btn-container"></div>');
+			$el.append($('<button type="button" class="btn prev">prev</button>'));
+			$el.append($('<button type="button" class="btn next">next</button>'));
+			_this.append($el);
+			opFunc.initMoveBtn();
+		}
+
+		opFunc.initMoveBtn=function(){
+			$('.btn.prev', _this).on('click', function(){
+				console.log('prev btn click!');
+			});
+
+			$('.btn.next', _this).on('click', function(){
+				console.log('next btn click!');
+			});
+		}
+
 		var optionSet=function(){
 			console.log('optionSet function');
 
@@ -61,6 +78,10 @@
 						break;
 					case 'contorl':
 						break;
+				}
+
+				if(op.button==true){
+					opFunc.createButton();
 				}
 			}
 		}
@@ -77,4 +98,3 @@
 		init();
 	}
 })(jQuery);
-//http://www.nextree.co.kr/p9989/

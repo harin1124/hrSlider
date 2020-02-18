@@ -26,8 +26,12 @@ blockquote, q {quotes:none}
 blockquote:before, blockquote:after, q:before, q:after {content:''; content:none}
 table {border-collapse:collapse; border-spacing:0}
 
-.hr-wrap {width:150px; overflow:hidden;}
+.hr-wrap {position:relative; width:150px; overflow:hidden}
 .hr-wrap .hr-container {width:750px; outline:1px solid red}
 .hr-wrap .hr-container:after {content:''; display:block; clear:both}
 .hr-wrap .hr-container .hr-slider {width:150px; float:left}
-.hr-wrap .hr-container .hr-slider > * {width:150px; display:block;}
+.hr-wrap .hr-container .hr-slider > * {width:150px; display:block}
+.hr-wrap .hr-btn-container {position:absolute; top:0; left:0; width:100%; height:100%}
+.hr-wrap .hr-btn-container .btn {position:absolute; top:50%; margin-top:-15px; width:30px; height:30px; font-size:10px; text-align:center; outline:none; border:none; cursor:pointer}
+.hr-wrap .hr-btn-container .btn.prev {left:0}
+.hr-wrap .hr-btn-container .btn.next {right:0}
