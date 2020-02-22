@@ -2,7 +2,8 @@
 	$.fn.hrSlider=function(option){
 		let op=option;
 		let _this=this;
-		console.log('option :: ',op);
+		let SIZE=_this.find('.hr-container li').length;
+		console.log('option :',op);
 
 		var init=function(){
 			console.log('init function');
@@ -13,38 +14,45 @@
 			}
 		}
 
+		var getRollingValue=function(el){
+			return parseInt(el.css('margin-left').replace('px', ''));
+		}
+
 		var opFunc={};
 		opFunc.typeAuto=function(){
-			let pt=_this.children();
+			let pt=_this.find('.hr-container');
 			let delay=(op.delay!=undefined)?op.delay:3000;
 
 			let width=150; // 이 부분은 실제로 값 받아서 처리해야 함
 			let maxSize=-1*(width*(pt.children().length-1));
 			let cssVal=null;
 			
-			let autoRightMoveId=null;
-			let autoLeftMoveId=null;
+			let autoNextMoveId=null;
+			let autoPrevMoveId=null;
 
-			autoRightMove();
+			pt.data('view',0);
+			autoNextMove();
 
-			function autoRightMove(){
-				autoRightMoveId=setInterval(function(){
-					cssVal=parseInt(pt.css('margin-left').replace('px'))-150;
-					pt.css('margin-left', cssVal);
-					if(cssVal==maxSize){
-						clearInterval(autoRightMoveId);
-						autoLeftMove();
+			function autoNextMove(){
+				autoNextMoveId=setInterval(function(){
+					pt.data('view', pt.data('view')+1);
+					pt.css('margin-left', getRollingValue(pt)-150);
+					if(pt.data('view')==4){
+						console.log('현재 DATA ' + pt.data('view'))
+						clearInterval(autoNextMoveId);
+						autoPrevMove();
 					}
 				}, delay);
 			}
 
-			function autoLeftMove(){
-				autoLeftMoveId=setInterval(function(){
-					cssVal=parseInt(pt.css('margin-left').replace('px',''))+150;
-					pt.css('margin-left',cssVal);
-					if(cssVal==0){
-						clearInterval(autoLeftMoveId);
-						autoRightMove();
+			function autoPrevMove(){
+				autoPrevMoveId=setInterval(function(){
+					pt.data('view', pt.data('view')-1);
+					pt.css('margin-left', getRollingValue(pt)+150);
+					if(pt.data('view')==0){
+						console.log('현재 DATA ' + pt.data('view'))
+						clearInterval(autoPrevMoveId);
+						autoNextMove();
 					}
 				}, delay);
 			}
@@ -57,43 +65,43 @@
 			_this.append($el);
 			opFunc.initMoveBtn();
 		}
-
 		opFunc.initMoveBtn=function(){
-			$('.btn.prev', _this).on('click', function(){
-				console.log('prev btn click!');
-			});
-
-			$('.btn.next', _this).on('click', function(){
-				console.log('next btn click!');
-			});
+			_this.find('.hr-container').data('view',0);
+			$('.btn.prev', _this).on('click', opFunc.prevBtnAction);
+			$('.btn.next', _this).on('click', opFunc.nextBtnAction);
+		}
+		opFunc.prevBtnAction=function(){
+			var pt=_this.find('.hr-container');
+			if(pt.data('view')>0){
+				pt.data('view', pt.data('view')-1);
+				pt.css('margin-left',getRollingValue(pt)+150);
+			}
+		}
+		opFunc.nextBtnAction=function(){
+			var pt=_this.find('.hr-container');
+			if(pt.data('view')<SIZE-1){
+				pt.data('view', pt.data('view')+1);
+				pt.css('margin-left',getRollingValue(pt)-150);
+			}
 		}
 
 		var optionSet=function(){
 			console.log('optionSet function');
-
+			// ROLLING TYPE
 			if(op.type!=null){
 				switch(op.type){
 					case 'auto':
 						opFunc.typeAuto();
 						break;
-					case 'contorl':
-						break;
-				}
-
-				if(op.button==true){
-					opFunc.createButton();
+					case 'control':
+						opFunc.createButton();
 				}
 			}
 		}
 
-		
-
 		var defaultOptionSet=function(){
 			console.log('defaultOptionSet function');
 		}
-
-		
-
 		// ===========================================
 		init();
 	}
