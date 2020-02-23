@@ -38,7 +38,6 @@
 					pt.data('view', pt.data('view')+1);
 					pt.css('margin-left', getRollingValue(pt)-150);
 					if(pt.data('view')==4){
-						console.log('현재 DATA ' + pt.data('view'))
 						clearInterval(autoNextMoveId);
 						autoPrevMove();
 					}
@@ -50,7 +49,6 @@
 					pt.data('view', pt.data('view')-1);
 					pt.css('margin-left', getRollingValue(pt)+150);
 					if(pt.data('view')==0){
-						console.log('현재 DATA ' + pt.data('view'))
 						clearInterval(autoPrevMoveId);
 						autoNextMove();
 					}
@@ -59,16 +57,26 @@
 		}
 
 		opFunc.createButton=function(){
-			var $el=$('<div class="hr-btn-container"></div>');
-			$el.append($('<button type="button" class="btn prev">prev</button>'));
-			$el.append($('<button type="button" class="btn next">next</button>'));
-			_this.append($el);
-			opFunc.initMoveBtn();
+			if(op.button!=null&&op.button!=undefined){
+				if(op.button.prevEl.length>0&&op.button.nextEl.length>0){
+					opFunc.initMoveBtn(op.button.prevEl, op.button.nextEl);
+				}else{
+					throw new Error("custom button element empty or not found");
+				}
+			}else{
+				var $el=$('<div class="hr-btn-container"></div>');
+				$el.append($('<button type="button" class="btn prev">prev</button>'));
+				$el.append($('<button type="button" class="btn next">next</button>'));
+				_this.append($el);
+				opFunc.initMoveBtn($('.hr-btn-container .btn.prev'), $('.hr-btn-container .btn.next'));
+			}
+
+			
 		}
-		opFunc.initMoveBtn=function(){
+		opFunc.initMoveBtn=function(prevEl, nextEl){
 			_this.find('.hr-container').data('view',0);
-			$('.btn.prev', _this).on('click', opFunc.prevBtnAction);
-			$('.btn.next', _this).on('click', opFunc.nextBtnAction);
+			$(prevEl, _this).on('click', opFunc.prevBtnAction);
+			$(nextEl, _this).on('click', opFunc.nextBtnAction);
 		}
 		opFunc.prevBtnAction=function(){
 			var pt=_this.find('.hr-container');
@@ -93,7 +101,7 @@
 					case 'auto':
 						opFunc.typeAuto();
 						break;
-					case 'control':
+					case 'button':
 						opFunc.createButton();
 				}
 			}

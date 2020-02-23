@@ -17,9 +17,11 @@
 			<li class="hr-slider"><img src="./images/2020_Birds_of_Prey.jpg" title="4번 이미지"></li>
 			<li class="hr-slider"><img src="./images/2020_Black_Widow.jpg" title="5번 이미지"></li>
 		</ul>
+		<div class="customButton prevBtn"><button type="button">이전</button></div>
+		<div class="customButton nextBtn"><button type="button">다음</button></div>
 	</div>
 </body>
 <script>
-	$('.myContainer').hrSlider({type:'control', delay:1000});
+	$('.myContainer').hrSlider({type:'button', delay:1000, button:{prevEl:$('.customButton.prevBtn'), nextEl:$('.customButton.nextBtn')}});
 </script>
 </html>
