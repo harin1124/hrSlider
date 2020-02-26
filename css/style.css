@@ -27,7 +27,7 @@ blockquote:before, blockquote:after, q:before, q:after {content:''; content:none
 table {border-collapse:collapse; border-spacing:0}
 
 .hr-wrap {position:relative; width:150px; overflow:hidden}
-.hr-wrap .hr-container {width:750px; outline:1px solid red}
+.hr-wrap .hr-container {} /* FULL SIZE */
 .hr-wrap .hr-container:after {content:''; display:block; clear:both}
 .hr-wrap .hr-container .hr-slider {width:150px; float:left}
 .hr-wrap .hr-container .hr-slider > * {width:150px; display:block}

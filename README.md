@@ -5,3 +5,4 @@
 - 2020-02-17 slider auto rolling function base fin.
 - 2020-02-22 slider control(button) rolling function base fin.
 - 2020-02-23 slider custom button element event add fin.
+- 2020-02-26 slider width size option & default setting fin.

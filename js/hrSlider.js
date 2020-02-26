@@ -23,10 +23,10 @@
 			let pt=_this.find('.hr-container');
 			let delay=(op.delay!=undefined)?op.delay:3000;
 
-			let width=150; // 이 부분은 실제로 값 받아서 처리해야 함
+			let width=op.width;
 			let maxSize=-1*(width*(pt.children().length-1));
 			let cssVal=null;
-			
+
 			let autoNextMoveId=null;
 			let autoPrevMoveId=null;
 
@@ -36,7 +36,7 @@
 			function autoNextMove(){
 				autoNextMoveId=setInterval(function(){
 					pt.data('view', pt.data('view')+1);
-					pt.css('margin-left', getRollingValue(pt)-150);
+					pt.css('margin-left', getRollingValue(pt)-width);
 					if(pt.data('view')==4){
 						clearInterval(autoNextMoveId);
 						autoPrevMove();
@@ -47,7 +47,7 @@
 			function autoPrevMove(){
 				autoPrevMoveId=setInterval(function(){
 					pt.data('view', pt.data('view')-1);
-					pt.css('margin-left', getRollingValue(pt)+150);
+					pt.css('margin-left', getRollingValue(pt)+width);
 					if(pt.data('view')==0){
 						clearInterval(autoPrevMoveId);
 						autoNextMove();
@@ -82,19 +82,34 @@
 			var pt=_this.find('.hr-container');
 			if(pt.data('view')>0){
 				pt.data('view', pt.data('view')-1);
-				pt.css('margin-left',getRollingValue(pt)+150);
+				pt.css('margin-left',getRollingValue(pt)+op.width);
 			}
 		}
 		opFunc.nextBtnAction=function(){
 			var pt=_this.find('.hr-container');
 			if(pt.data('view')<SIZE-1){
 				pt.data('view', pt.data('view')+1);
-				pt.css('margin-left',getRollingValue(pt)-150);
+				pt.css('margin-left',getRollingValue(pt)-op.width);
 			}
+		}
+
+		opFunc.sizeSetting=function(){
+			_this.css('width',op.width);
+			$('.hr-container', _this).css('width',op.width*SIZE);
+			$('.hr-container .hr-slider', _this).css('width',op.width);
+			$('.hr-container .hr-slider > *', _this).css('width',op.width);
 		}
 
 		var optionSet=function(){
 			console.log('optionSet function');
+			// WIDTH
+			if(op.width!=null&&op.width!=undefined){
+				opFunc.sizeSetting();
+			}else{
+				op.width=150;
+				opFunc.sizeSetting();
+			}
+
 			// ROLLING TYPE
 			if(op.type!=null){
 				switch(op.type){
@@ -103,6 +118,7 @@
 						break;
 					case 'button':
 						opFunc.createButton();
+						break;
 				}
 			}
 		}
