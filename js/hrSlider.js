@@ -3,10 +3,8 @@
 		let op=option;
 		let _this=this;
 		let SIZE=_this.find('.hr-container li').length;
-		console.log('option :',op);
 
 		var init=function(){
-			console.log('init function');
 			if(op!=undefined&&op!=null){
 				optionSet();
 			}else{
@@ -124,7 +122,6 @@
 		}
 
 		var defaultOptionSet=function(){
-			console.log('defaultOptionSet function');
 		}
 		// ===========================================
 		init();
